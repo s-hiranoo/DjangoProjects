@@ -1,0 +1,27 @@
+tele marketing officer:
+
+assist field officer:
+    - call farmers and market out products
+    - keep track farmer base
+
+
+
+Field officer:
+
+visit farmers in person
+organize group farmer meetings
+demonstrate successful fields
+sell product
+
+manage dealers in the area
+    dealer---farmer app
+    dealer side:
+        see past orders, analyse trend
+    farmer side:
+        farmers input his info(e.g.: location, LandArea, crops cultivated for now, our products brought in the past, closest dealer)
+
+mapping app for FOs:
+    map their daily route, optimize them
+
+
+

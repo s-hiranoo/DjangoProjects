@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="22d45273-90b2-4730-84c0-c02aacaae5d0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/templates/hsapp/farmer_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/templates/hsapp/farmer_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +79,7 @@
       <workItem from="1566930153009" duration="9572000" />
       <workItem from="1566990155045" duration="22341000" />
       <workItem from="1567149997152" duration="11525000" />
-      <workItem from="1567163284841" duration="2618000" />
+      <workItem from="1567163284841" duration="4530000" />
     </task>
     <servers />
   </component>
