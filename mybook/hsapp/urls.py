@@ -4,6 +4,5 @@ from . import views
 
 app_name = 'hsapp'
 urlpatterns = [
-    #path('farmer_list/', views.FarmerList.as_view(), name='farmer_list'),
-    path('farmer_list/', views.farmerlist, name='farmer_list'),
+    path('farmer_list/', views.FarmerList.as_view(), name='farmer_list'),
 ]

@@ -6,12 +6,16 @@ from .models import Farmer, FieldOfficer
 
 class FarmerList(ListView):
     model = Farmer
+    context_object_name = 'farmers'
     template_name = 'hsapp/farmer_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
-        if self.request.method == 'GET':
-            farmers = Farmer.objects.all().order_by(self.request.GET.get('orderby'))
-            return farmers
+        farmers = Farmer.objects.all()
+        if "order_by" in self.request.GET:
+            order_key = self.request.GET.get('order_by')
+            farmers = farmers.order_by(order_key)
+        return farmers
 
 
 def farmerlist(request):
