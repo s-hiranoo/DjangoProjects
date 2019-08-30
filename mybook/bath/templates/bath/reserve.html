@@ -1,0 +1,14 @@
+{% extends 'bath/base.html' %}
+
+{% block title %}Reservation Form{% endblock title %}
+
+{% block content %}
+    <h1 class="border-bottom">Hi, {{ member.name }}! Reserve your bath time here</h1>
+    <form action="{% url 'bath:reserve' %}" method="post">
+        {% csrf_token %}
+        <label>Reservation Time</label>
+        {{ form.reserve_time }}
+        <input type="submit" value="Register">
+    </form>
+
+{% endblock content %}

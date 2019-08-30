@@ -1,0 +1,33 @@
+{% extends "foreign/base.html" %}
+
+{% block title %}Question List{% endblock title %}
+
+{% block content %}
+<h2 class="mt-4 border-bottom">Question {{ question.id }}: {{ question.question_text }}</h4><br>
+<h3><font color="red">{{ error_message }}</font></h3><br>
+<a href="{% url 'foreign:index' %}" class="btn btn-primary btn-sm">Home</a>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Choice</th>
+    </tr>
+  </thead>
+  <form action="{% url 'foreign:vote' question_id=question.id %}" method="post">
+    {% csrf_token %}
+    <tbody>
+      {# {% for choice in choices %} #}
+      {% for choice in question.choice_set.all %}
+      <tr>
+	<td>{{ forloop.counter }}</td>
+	<td>
+	  <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+	  {{ choice.choice_text }}
+	</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+<input type="submit" value="Vote">
+
+{% endblock content %}

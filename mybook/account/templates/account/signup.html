@@ -1,0 +1,15 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+
+<h3 class="h3 border-bottom">{{ title }}</h3>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary" type="submit" value="登録">
+</form>
+
+{% endblock content %}

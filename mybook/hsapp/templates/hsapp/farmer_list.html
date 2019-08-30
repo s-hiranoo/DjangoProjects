@@ -1,0 +1,39 @@
+{% extends 'hsapp/base.html' %}
+
+{% load static %}
+
+{% block title %}Farmer List{% endblock title %}
+
+{% block content %}
+<h2>Farmer List</h2>
+<form method="get" action="{% url 'hsapp:farmer_list' %}">
+    <input type="text" value="" name="order_by">
+    <input type="submit" value="Sort">
+</form>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Product</th>
+            <th>Season</th>
+            <th>Location</th>
+            <th>Officers</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for farmer in farmers %}
+        <tr>
+            <td>{{ farmer.id }}</td>
+            <td>{{ farmer.name }}</td>
+            <td>{{ farmer.product }}</td>
+            <td>{{ farmer.season }}</td>
+            <td>{{ farmer.location }}</td>
+            <td>{% for officer in farmer.fieldofficer_set.all %}{{ officer.name }}, {% endfor %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock content %}
