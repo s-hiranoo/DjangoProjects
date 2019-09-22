@@ -1,0 +1,15 @@
+{% extends 'adminlte/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+    <div><a href="{% url 'hsapp:farmer_list' %}">Farmer List</a></div>
+    <div><a href="{% url 'hsapp:farmer_list' %}">Create new farmer</a></div>
+    <div><a href="{% url 'hsapp:farmer_list' %}">Publish data for dealers</a></div>
+    <div><a href="{% url 'hsapp:farmer_list' %}">Norma</a></div>
+    <div><a href="{% url 'hsapp:farmer_list' %}">Products in the season</a></div>
+    <div><a href="{% url 'hsapp:farmer_list' %}">Negotiate with dealers</a></div>
+    <div><a href="{% url 'hsapp:farmer_list' %}">Negotiate with farmers</a></div>
+
+{% endblock content %}

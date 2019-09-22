@@ -1,8 +1,12 @@
 from django.contrib import admin
 
-from .models import Farmer, FieldOfficer
+from .models import Farmer, FieldOfficer, Dealer
 
+admin.site.register(Dealer)
+admin.site.register(Farmer)
+admin.site.register(FieldOfficer)
 
+"""
 class FarmerAdmin(admin.ModelAdmin):
     list_display = ('name', 'product', 'season', 'location')
     list_display_links = ('name', 'product', 'season', 'location')
@@ -17,3 +21,7 @@ class FieldOfficerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(FieldOfficer)
+
+
+admin.site.register(Dealer)
+"""

@@ -1,0 +1,22 @@
+{% extends "adminlte/base.html" %}
+{% load static %}
+{% block title %}Data Upload{% endblock %}
+{% block extrahead %}
+<script>
+$(function(){
+  $('.dropify').dropify();
+})
+</script>
+{% endblock %}
+
+{% block content %}
+<h3>Upload</h3>
+<form action="{% url 'hsapp:upload' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" class="dropify" data-default-file="Choose upload file" name="csv">
+  <button type="submit" class="btn" name="button">Upload</button>
+</form>
+
+<p>debug: {{ key }}</p>
+<p>debug: {{ request_file }}</p>
+{% endblock content %}

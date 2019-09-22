@@ -1,0 +1,23 @@
+{% extends 'adminlte/base.html' %}
+
+{% block title %}Dealer Information{% endblock title %}
+
+{% block content %}
+    dealer list --- name, location, products stock(name, qty, season)[competing or not], HS products available(name, qty, season)
+    {% include 'hsapp/dealer_list.html' %}
+
+<br>    past visits calendar --- dealer_name, spent time  >>> google-calendar?
+<br>    visiting calendar --- dealer_name, location       >>> google-calendar?
+<br>    dealer - competing products list
+<hr>
+<br>    select a dealer button
+<br>    show the dealer detail
+<br>    edit dealer information
+
+        Field officer
+            visit n
+                date, spent time, which dealer visited
+
+
+
+{% endblock content %}

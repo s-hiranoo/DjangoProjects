@@ -27,21 +27,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'foreign.apps.ForeignConfig',
+    'bootstrap4',
+    'bath',
+    'account',
+    'hsapp',
+
+    # The general purpose templates
+    'django_adminlte',
+
+    # Optional: Skin for the admin interface
+    'django_adminlte_theme',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'foreign.apps.ForeignConfig',
-    'bootstrap4',
-    'bath',
-    'account',
-    'hsapp',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+# set path to media directory
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

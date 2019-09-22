@@ -4,5 +4,11 @@ from . import views
 
 app_name = 'hsapp'
 urlpatterns = [
+    path('', views.HomeView.as_view(), name='home'),
+    path('dealer_info/', views.DealerInfo.as_view(), name='dealer_info'),
     path('farmer_list/', views.FarmerList.as_view(), name='farmer_list'),
+    path('farmer_list/search_results/', views.SearchResultsView.as_view(), name='search_results_list'),
+    path('farmer_list/search_test/', views.search_test, name='search_test'),
+    path('upload/', views.upload, name='upload'),
 ]
+
