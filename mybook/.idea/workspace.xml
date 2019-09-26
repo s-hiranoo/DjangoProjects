@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="22d45273-90b2-4730-84c0-c02aacaae5d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foreign/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/foreign/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/migrations/0002_auto_20190830_1738.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/data/.~lock.farmer_list.csv#" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/data/.~lock.farmer_list.csv#" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/data/.~lock.fo_list.csv#" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/data/.~lock.fo_list.csv#" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/data/fo_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/data/fo_list.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hsapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hsapp/templates/hsapp/farmer_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/templates/hsapp/farmer_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/templates/hsapp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/templates/hsapp/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hsapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hsapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybook/settings.py" afterDir="false" />
@@ -121,7 +121,9 @@
       <workItem from="1568549084857" duration="9956000" />
       <workItem from="1569016504695" duration="16931000" />
       <workItem from="1569135838049" duration="2419000" />
-      <workItem from="1569159008579" duration="10031000" />
+      <workItem from="1569159008579" duration="16521000" />
+      <workItem from="1569206553826" duration="1278000" />
+      <workItem from="1569320193354" duration="17035000" />
     </task>
     <servers />
   </component>

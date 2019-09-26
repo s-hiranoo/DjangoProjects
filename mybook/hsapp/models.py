@@ -15,11 +15,11 @@ class Farmer(models.Model):
     phone = models.IntegerField()
     name = models.CharField(max_length=128)
     state_id_number = models.CharField(max_length=128)
-    state_id_picture = models.FileField()
+    state_id_picture = models.FileField(blank=True)
     birth_date = models.CharField(max_length=128)
     dependents = models.CharField(max_length=255)
-    land_size = models.IntegerField()
-    leased_land = models.BooleanField()
+    land_size = models.IntegerField(default=0)
+    leased_land = models.BooleanField(default=False)
     previous_hs_client = models.BooleanField(default=False)
     location = models.CharField(max_length=255)
 
@@ -29,12 +29,30 @@ class Farmer(models.Model):
 
 class FieldOfficer(models.Model):
     name = models.CharField(max_length=255)
-    farmer_ids = models.CharField(max_length=255, validators=[validate_comma_separated_integer_list])
+    farmers = models.ManyToManyField(Farmer, blank=True, default=[1])
 
     def __str__(self):
         return self.name
 
 
+class VisitFarmer(models.Model):
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
+    field_officer = models.ForeignKey(FieldOfficer, on_delete=models.CASCADE, default=1)
+    done_or_appointment = models.BooleanField(default=False)
+    date = models.DateField(default=timezone.now)
+    check_in_time = models.TimeField(default=timezone.now)
+    check_out_time = models.TimeField(default=timezone.now)
+
+
+class VisitDealer(models.Model):
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, default=1)
+    field_officer = models.ForeignKey(FieldOfficer, on_delete=models.CASCADE, default=1)
+    done_or_appointment = models.BooleanField(default=False)
+    date = models.DateField(default=timezone.now)
+    check_in_time = models.TimeField(default=timezone.now)
+    check_out_time = models.TimeField(default=timezone.now)
+
+"""
 class Visit(models.Model):
     customer_id = models.CharField(max_length=128)
     fo_id = models.CharField(max_length=128)
@@ -45,38 +63,42 @@ class Visit(models.Model):
 
     def __str__(self):
         return self.date
+"""
 
 
 class Plant(models.Model):
     name = models.CharField(max_length=128)
-    species = models.CharField(max_length=128)
+    species = models.CharField(max_length=128, blank=True)
     season_in = models.IntegerField()   # in month
     season_end = models.IntegerField()  # end month
-    season = models.IntegerField()      # summer, winter, etc
+    #season = models.CharField()      # summer, winter, etc
 
     def __str__(self):
         return self.name
 
+
 class Company(models.Model):
     name = models.CharField(max_length=128)
+    location = models.CharField(max_length=128)
 
     def __str__(self):
         return self.name
 
 
 class Product(models.Model):
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, default=1)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=128)
-    plant_id = models.IntegerField()
-    company_id = models.IntegerField()
-    price = models.IntegerField()
+    quantity = models.IntegerField(default=0)
+    price = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
 
 
 class ProspectFarmer(models.Model):
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=128)
-    farmer_id = models.IntegerField() # ID of farmer who introduced him to fo
     date = models.DateField(default=timezone.now)
 
     def __str__(self):
@@ -84,8 +106,8 @@ class ProspectFarmer(models.Model):
 
 
 class Escalation(models.Model):
-    fo_id = models.IntegerField()
-    farmer_id = models.IntegerField()
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
+    field_officer = models.ForeignKey(FieldOfficer, on_delete=models.CASCADE, default=1)
     tmo_call_required = models.BooleanField(default=True)
     date = models.DateField(default=timezone.now)
 
@@ -94,54 +116,52 @@ class Escalation(models.Model):
 
 
 class FarmerPlant(models.Model):
-    plant_id = models.IntegerField()
-    farmer_id = models.IntegerField()
-    plant_period = models.DateField()
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, default=1)
+    plant_period = models.DateField(default=timezone.now)
     major = models.BooleanField()  # If the farmer plants this crop as his main crop
 
     def __str__(self):
-        return self.plant_id
+        return self.plant.name
 
 
 class DealerFarmerRelation(models.Model):
-    dealer_id = models.IntegerField()
-    farmer_id = models.IntegerField()
-    close_relation = models.BooleanField()
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, default=1)
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
+    close_relation = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.dealer_id
+        return self.close_relation
 
 
 class PurchaseHistory(models.Model):
-    farmer_id = models.IntegerField()
-    dealer_id = models.IntegerField()
-    plant_id = models.IntegerField()
-    product_id = models.IntegerField()
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, default=1)
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
+    product = models.ForeignKey(Plant, on_delete=models.CASCADE, default=1)
     date = models.DateField(default=timezone.now)
-    price = models.IntegerField()
+    quantity = models.IntegerField(default=0)
 
     def __str__(self):
         return self.date
 
 
-class FarmerInterests(models.Model):
-    farmer_id = models.IntegerField()
-    plant_id = models.IntegerField()
-    product_id = models.IntegerField()
-    interested = models.BooleanField()
-    quantity = models.IntegerField()
+class FarmerInterest(models.Model):
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, default=1)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, default=1)
+    interested = models.BooleanField(default=False)
+    quantity = models.IntegerField(default=0)
     date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return self.plant_id
+        return self.plant.name
 
 
-class DealerProducts(models.Model):
-    dealer_id = models.IntegerField()
-    product_id = models.IntegerField()
-    quantity = models.IntegerField()
+class DealerProduct(models.Model):
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, default=1)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
+    quantity = models.IntegerField(default=0)
     date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return self.dealer_id
+        return self.dealer.name
 

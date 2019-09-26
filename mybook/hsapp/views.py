@@ -3,16 +3,43 @@ from functools import reduce
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.db.models import Q
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 from django.views.generic.list import ListView
 from .models import *
+from .forms import *
 import pandas as pd
 from io import TextIOWrapper, StringIO
 
-
 class HomeView(TemplateView):
     template_name = 'hsapp/home.html'
+
+
+class CreateNewFarmer(CreateView):
+    model = Farmer
+    form_class = FarmerCreationForm
+    template_name = "hsapp/create_farmer.html"
+    success_url = reverse_lazy('hsapp:home')
+
+
+class ProductList(ListView):
+    model = Product
+    template_name = 'hsapp/product_list.html'
+
+    def get_queryset(self):
+        result = super(ProductList, self).get_queryset()
+
+        if 'q' in self.request.GET:
+            query = self.request.GET.get('q')
+            if 'season' in query:
+                month_now = timezone.now().month
+                plants_in_season = Plant.objects.filter(season_in__lt=month_now+1, season_out__gt=month_now-1)
+                result = result.filter(plant_id__in=[plant.id for plant in plants_in_season])
+            else:
+                order_key = query
+                result.order_by(order_key)
+        return result
 
 
 class DealerInfo(ListView):

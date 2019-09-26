@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'bath',
     'account',
     'hsapp',
+    'upload',
 
     # The general purpose templates
     'django_adminlte',

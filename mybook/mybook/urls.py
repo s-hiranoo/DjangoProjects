@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('upload/', include('upload.urls')),
     path('hsapp/', include('hsapp.urls')),
     path('account/', include('account.urls')),
     path('bath/', include('bath.urls')),

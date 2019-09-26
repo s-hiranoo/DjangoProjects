@@ -1,17 +1,17 @@
-{% extends 'hsapp/base.html' %}
+{% extends 'adminlte/base.html' %}
 
 {% block title %}Home{% endblock title %}
 
 {% block content %}
 
     <div><a href="{% url 'hsapp:farmer_list' %}">Farmer List</a></div>
-    <div><a href="{% url 'hsapp:farmer_list' %}">Create new farmer</a></div>
+    <div><a href="{% url 'hsapp:create_farmer' %}">Create new farmer</a></div>
     <div><a href="{% url 'hsapp:farmer_list' %}">Publish data for dealers</a></div>
     <div><a href="{% url 'hsapp:farmer_list' %}">Norma</a></div>
     <div><a href="{% url 'hsapp:farmer_list' %}">Products in the season</a></div>
     <div><a href="{% url 'hsapp:dealer_info' %}">Dealers information</a></div>
     <div><a href="{% url 'hsapp:farmer_list' %}">Farmers information</a></div>
-    <div><a href="{% url 'hsapp:upload' %}">Upload data</a></div>
+    <div><a href="{% url 'upload:load_csv' %}">Upload data</a></div>
 
 
 {% endblock content %}

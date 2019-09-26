@@ -1,0 +1,17 @@
+{% extends 'hsapp/base.html' %}
+{% load static %}
+{% block title %}Create Farmer{% endblock title %}
+{% block content %}
+
+    <h2>Create a new Farmer</h2>
+    <hr>
+    <form method="post" action="{% url 'hsapp:create_farmer' %}">
+        {% csrf_token %}
+
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Save</button>
+    </form>
+
+{% endblock content %}
