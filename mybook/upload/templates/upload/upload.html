@@ -11,13 +11,13 @@ $(function(){
 
 {% block content %}
 
-    <h3>Upload</h3>
+    <h1>Upload your file</h1><hr>
+    {% if error_message %} {{ error_message }} {% endif %}
+
     <form action="{% url 'upload:load_csv' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="file" class="dropify" data-default-file="Choose upload file" name="csv">
-      <button type="submit" class="btn" name="button">Upload</button>
+      <button type="submit" name="button" class="btn btn-sm btn-primary">Upload</button>
     </form>
-
-    <p>Debug(request): {{ file_name }}</p>
 
 {% endblock content %}
