@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 from . import views
 
 
@@ -10,6 +11,5 @@ urlpatterns = [
     path('farmer_list/search_results/', views.SearchResultsView.as_view(), name='search_results_list'),
     path('farmer_list/search_test/', views.search_test, name='search_test'),
     path('create_farmer/', views.CreateNewFarmer.as_view(), name='create_farmer'),
-    path('upload/', views.upload, name='upload'),
 ]
 

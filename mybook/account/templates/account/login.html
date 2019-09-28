@@ -1,4 +1,4 @@
-{% extends "account/base.html" %}
+{% extends "admin/base_login.html" %}
 
 {% block content %}
 
@@ -33,7 +33,10 @@
 </table>
 
 <input type="submit" value="login" />
-<input type="hidden" name="next" value="{% url 'bath:index' %}" />
+<input type="hidden" name="next" value="{{ next }}" />
 </form>
+
+    <a class="btn btn-primary btn-sm" href="{% url 'account:create_account' %}">Sign Up</a>
+
 
 {% endblock %}

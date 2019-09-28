@@ -1,4 +1,4 @@
-{% extends 'account/base.html' %}
+{% extends 'admin/base_login.html' %}
 {% load static %}
 {% block title %}Sign Up{% endblock title %}
 
@@ -9,7 +9,10 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="登録">
+    <input class="btn btn-primary" type="submit" value="Register">
 </form>
+    <hr><hr>
+    <h1>debug---</h1>
+    <h4>request: {{ request }}</h4>
 
 {% endblock content %}

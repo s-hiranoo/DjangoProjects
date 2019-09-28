@@ -1,6 +1,9 @@
 import operator
 from functools import reduce
 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -12,8 +15,10 @@ from .forms import *
 import pandas as pd
 from io import TextIOWrapper, StringIO
 
-class HomeView(TemplateView):
+
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'hsapp/home.html'
+
 
 
 class CreateNewFarmer(CreateView):
@@ -21,6 +26,7 @@ class CreateNewFarmer(CreateView):
     form_class = FarmerCreationForm
     template_name = "hsapp/create_farmer.html"
     success_url = reverse_lazy('hsapp:home')
+
 
 
 class ProductList(ListView):
@@ -42,6 +48,7 @@ class ProductList(ListView):
         return result
 
 
+
 class DealerInfo(ListView):
     template_name = 'hsapp/dealer_info.html'
     model = Dealer
@@ -51,6 +58,7 @@ class DealerInfo(ListView):
         return dealers
 
 
+
 class FarmerList(ListView):
     model = Farmer
     context_object_name = 'farmers'
@@ -58,12 +66,17 @@ class FarmerList(ListView):
     #paginate_by = 10
 
     def get_queryset(self):
+        login_user = self.request.user
         farmers = Farmer.objects.all()
+        if login_user.groups.filter(name='FO').exists() and (not login_user.is_superuser):
+            name = login_user.first_name
+            fo = FieldOfficer.objects.get(name=name)
+            farmers = fo.farmers.all()
+
         if "order_by" in self.request.GET:
             order_key = self.request.GET.get('order_by')
             farmers = farmers.order_by(order_key)
         return farmers
-
 
 
 class SearchResultsView(ListView):
@@ -100,66 +113,3 @@ def search_test(request):
     #return render(request, template_name, context)
     return HttpResponse(query_list)
 
-
-
-########  load csv file  #########################################################################
-
-def mybool(val):
-    if val=='n':
-        return False
-    return True
-
-def mylist(val):
-    lis = list(map(int, val.split()))
-    return lis
-
-def upload(request):
-    debug = False
-    context = {}
-    if 'csv' in request.FILES:
-        if 'dealer' in str(request.FILES['csv']):
-            context['key'] = 'dealer'
-            form_data = TextIOWrapper(request.FILES['csv'].file, encoding='utf-8')
-            dealers = pd.read_csv(form_data)
-            n = len(dealers)
-            for i in range(n):
-                Dealer.objects.create(
-                    name=dealers['name'][i],
-                    location=dealers['location'][i],
-                )
-            return redirect('hsapp:upload')
-
-        elif 'farmer' in str(request.FILES['csv']):
-            form_data = TextIOWrapper(request.FILES['csv'].file, encoding='utf-8')
-            farmers = pd.read_csv(form_data)
-            n = len(farmers)
-            context['key'] = 'farmer'
-            for i in range(n):
-                Farmer.objects.create(
-                    phone=farmers['phone'][i],
-                    name=farmers['name'][i],
-                    state_id_number=farmers['state_id_number'][i],
-                    state_id_picture='data/sample_picture.jpg',
-                    birth_date=farmers['birth_date'][i],
-                    dependents=farmers['dependents'][i],
-                    land_size=int(farmers['land_size'][i]),
-                    leased_land=mybool(farmers['leased_land'][i]),
-                    previous_hs_client=mybool(farmers['previous_hs_client'][i]),
-                    location=farmers['location'][i],
-                )
-            return redirect('hsapp:upload')
-
-        elif 'fo' in str(request.FILES['csv']):
-            form_data = TextIOWrapper(request.FILES['csv'].file, encoding='utf-8')
-            fos = pd.read_csv(form_data)
-            n = len(fos)
-            for i in range(n):
-                FieldOfficer.objects.create(
-                    name=fos['name'][i],
-                    farmer_ids=mylist(fos['farmer_ids'][i]),
-                )
-
-            return redirect('hsapp:upload')
-
-    else:
-        return render(request, 'hsapp/upload.html', context)
