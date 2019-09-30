@@ -145,3 +145,8 @@ LOGIN_REDIRECT_URL = 'hsapp:home'
 
 # set user
 #AUTH_USER_MODEL = 'account.User'
+
+# automatic logout
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800  # unit=[sec], expire_limit=30 min
+SESSION_SAVE_EVERY_REQUEST = True
