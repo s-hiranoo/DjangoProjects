@@ -20,16 +20,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'hsapp/home.html'
 
 
-
-class CreateNewFarmer(CreateView):
+class CreateNewFarmer(LoginRequiredMixin, CreateView):
     model = Farmer
     form_class = FarmerCreationForm
     template_name = "hsapp/create_farmer.html"
     success_url = reverse_lazy('hsapp:home')
 
 
-
-class ProductList(ListView):
+class ProductList(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'hsapp/product_list.html'
 
@@ -48,8 +46,7 @@ class ProductList(ListView):
         return result
 
 
-
-class DealerInfo(ListView):
+class DealerInfo(LoginRequiredMixin, ListView):
     template_name = 'hsapp/dealer_info.html'
     model = Dealer
     context_object_name = 'dealers'
@@ -58,8 +55,7 @@ class DealerInfo(ListView):
         return dealers
 
 
-
-class FarmerList(ListView):
+class FarmerList(LoginRequiredMixin, ListView):
     model = Farmer
     context_object_name = 'farmers'
     template_name = 'hsapp/farmer_list.html'

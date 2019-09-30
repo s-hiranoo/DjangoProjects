@@ -15,7 +15,7 @@ class LoginForm(AuthenticationForm):
 class UserCreateForm(UserCreationForm):
     username = forms.CharField(max_length=128)
     first_name = forms.CharField(max_length=128)
-    #last_name = forms.CharField(max_length=128, blank=True)
+    last_name = forms.CharField(max_length=128)
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
     role = forms.ModelChoiceField(Group.objects, label='Role')
