@@ -1,1 +1,49 @@
 plant,company,name,quantity,price
+apple,Abc,fine apple,100,50
+apple,Age0,nice apple,200,100
+apple,Gros,normal apple,90,120
+apple,Efao,great apple,65,400
+carrot,Qfas,good carrot,40,200
+carrot,Plannet,marvelous carrot,50,50
+carrot,Abc,just carrot,15,10
+potato,Age0,stranger potato,101,5
+potato,Gros,bird potato,201,20
+potato,Efao,horse potato,91,30
+potato,Qfas,cow potato,66,51
+banana,Plannet,monkey banana,41,101
+banana,Abc,good banana,51,121
+tomato,Age0,trans tomato,16,401
+tomato,Gros,worse tomato,102,201
+tomato,Efao,urban tomato,202,51
+rice,Qfas,rice1,92,11
+rice,Plannet,rice2,67,6
+rice,Abc,rice3,42,21
+lettuce,Age0,lettucing,52,31
+lettuce,Gros,lettuce bad,17,52
+lettuce,Efao,lettuce great,103,102
+spinach,Qfas,speanach,203,122
+spinach,Plannet,spin hot,93,402
+spinach,Abc,spinning,68,202
+radish,Age0,rat dish,43,52
+radish,Gros,kabu,53,12
+asparagus,Efao,bar vege,18,7
+asparagus,Qfas,best asparagus,104,22
+artichoke,Plannet,any sweet,204,32
+artichoke,Abc,artistic vege,94,53
+pineapple,Age0,yellow apple,69,20
+pineapple,Gros,pine master,44,23
+cucumber,Efao,kyuri,54,230
+cucumber,Qfas,kyukan cho,19,342
+wheat,Plannet,mugi,105,234
+wheat,Abc,wheeeeaat,205,23
+broccoli,Age0,green flowers,95,52
+broccoli,Gros,little flowers,70,25
+broccoli,Efao,mosa mosa,45,51
+mushroom,Qfas,tasty mush,55,82
+mushroom,Plannet,mush mush,20,9
+cabbage,Abc,cabvege,106,23
+cabbage,Age0,carrot vege,206,40
+cabbage,Gros,good cabbege,96,32
+onion,Efao,onion ring,71,58
+onion,Qfas,big onion,46,20
+onion,Plannet,small onion,56,13

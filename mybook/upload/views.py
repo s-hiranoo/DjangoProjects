@@ -52,22 +52,12 @@ def load_csv(request):
             df = pd.read_csv(form_data)
             n = len(df)
 
-            if 'file_name' == 'dealer_list':
-                dealers = []
-                for i in range(n):
-                    dealer = Dealer(
-                        name=df['name'][i],
-                        location=df['location'][i],
-                    )
-                    dealers.append(dealer)
-
-                Dealer.objects.bulk_create(dealers)
+            if file_name == 'dealer_list':
+                Dealer.objects.bulk_create(Dealer(name=df['name'][i], location=df['location'][i]) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'farmer_list':
-                farmers = []
-                for i in range(df):
-                    farmer = Farmer(
+            elif file_name == 'farmer_list':
+                Farmer.objects.bulk_create(Farmer(
                         phone=df['phone'][i],
                         name=df['name'][i],
                         state_id_number=df['state_id_number'][i],
@@ -78,12 +68,10 @@ def load_csv(request):
                         leased_land=mybool(df['leased_land'][i]),
                         previous_hs_client=mybool(df['previous_hs_client'][i]),
                         location=df['location'][i],
-                    )
-                    farmers.append(farmer)
-                Farmer.objects.bulk_create(farmers)
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'field_officer_list':
+            elif file_name == 'field_officer_list':
                 for i in range(n):
                     if df['name'][i] == 'none':
                         FieldOfficer.objects.create(name='none')
@@ -97,113 +85,82 @@ def load_csv(request):
 
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'visit_farmer_list':
-                visits = []
-                for i in range(n):
-                    visit = VisitFarmer(
-                        farmer=Farmer.objects.get(name=df['farmer']),
-                        field_officer=FieldOfficer.objects.get(name=df['field_officer']),
-                        done_or_appointment=mybool(df['done_or_appointment']),
-                        date=mydate(['date']),
-                        check_in_time=df['check_in'],
-                        check_out_time=df['check_out'],
-                    )
-                    visits.append(visit)
-                VisitFarmer.objects.bulk_create(visits)
+            elif file_name == 'visit_farmer_list':
+                VisitFarmer.objects.bulk_create(VisitFarmer(
+                        farmer=Farmer.objects.get(name=df['farmer'][i]),
+                        field_officer=FieldOfficer.objects.get(name=df['field_officer'][i]),
+                        done_or_appointment=mybool(df['done_or_appointment'][i]),
+                        date=mydate(['date'][i]),
+                        check_in_time=df['check_in'][i],
+                        check_out_time=df['check_out'][i],
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'visit_dealer_list':
-                visits = []
-                for i in range(n):
-                    visit = VisitDealer(
-                        dealer=Dealer.objects.get(name=df['dealer']),
-                        field_officer=FieldOfficer.objects.get(name=df['field_officer']),
-                        done_or_appointment=mybool(df['done_or_appointment']),
-                        date=mydate(df['date']),
-                        check_in_time=df['check_in'],
-                        check_out_time=df['check_out'],
-                    )
-                    visits.append(visit)
-                VisitDealer.objects.bulk_create(visits)
+            elif file_name == 'visit_dealer_list':
+                VisitDealer.objects.bulk_create(VisitDealer(
+                        dealer=Dealer.objects.get(name=df['dealer'][i]),
+                        field_officer=FieldOfficer.objects.get(name=df['field_officer'][i]),
+                        done_or_appointment=mybool(df['done_or_appointment'][i]),
+                        date=mydate(df['date'][i]),
+                        check_in_time=df['check_in'][i],
+                        check_out_time=df['check_out'][i],
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'plant_list':
-                plants = []
-                for i in range(n):
-                    plant = Plant(
-                        name=df['name'],
-                        species=df['species'],
-                        season_in=df['season_in'],
-                        season_end=df['season_end'],
-                    )
-                    plants.append(plant)
-                Plant.objects.bulk_create(plants)
+            elif file_name == 'plant_list':
+                Plant.objects.bulk_create(Plant(
+                        name=df['name'][i],
+                        species=df['species'][i],
+                        season_in=df['season_in'][i],
+                        season_end=df['season_end'][i],
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'company_list':
-                companies = []
-                for i in range(n):
-                    company = Company(
-                        name=df['name'],
-                        location=df['location'],
-                    )
-                    companies.append(company)
-                Company.objects.bulk_create(companies)
+            if file_name == 'company_list':
+                Company.objects.bulk_create(Company(
+                        name=df['name'][i],
+                        location=df['location'][i],
+                    ) for i in range(n))
+
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'product_list':
-                products = []
-                for i in range(n):
-                    product = Product(
-                        plant=Plant.objects.get(name=df['plant']),
-                        company=Company.objects.get(name=df['company']),
-                        name=df['name'],
-                        quantity=df['quantity'],
-                        price=df['price'],
-                    )
-                    products.append(product)
-                Product.objects.bulk_create(products)
+            elif file_name == 'product_list':
+                Product.objects.bulk_create(Product(
+                        plant=Plant.objects.get(name=df['plant'][i]),
+                        company=Company.objects.get(name=df['company'][i]),
+                        name=df['name'][i],
+                        quantity=df['quantity'][i],
+                        price=df['price'][i],
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'prospect_farmer_list':
-                prospects = []
-                for i in range(n):
-                    prospect = ProspectFarmer(
-                        farmer=Farmer.objects.get(name=df['farmer']),
-                        name=df['name'],
-                        date=mydate(df['date']),
-                    )
-                    prospects.append(prospect)
-                ProspectFarmer.objects.bulk_create(prospects)
+            elif file_name == 'prospect_farmer_list':
+                ProspectFarmer.objects.bulk_create(ProspectFarmer(
+                        farmer=Farmer.objects.get(name=df['farmer'][i]),
+                        name=df['name'][i],
+                        date=mydate(df['date'][i]),
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'escalation_list':
-                escalations = []
-                for i in range(n):
-                    escalation = Escalation(
-                        farmer=Farmer.objects.get(name=df['farmer']),
-                        field_officer=FieldOfficer.objects.get(name=df['field_officer']),
-                        tmo_call_required=df['tmo_call_required'],
-                        date=mydate(df['date']),
-                    )
-                    escalations.append(escalation)
-                Escalation.objects.bulk_create(escalations)
+            elif file_name == 'escalation_list':
+                Escalation.objects.bulk_create(Escalation(
+                        farmer=Farmer.objects.get(name=df['farmer'][i]),
+                        field_officer=FieldOfficer.objects.get(name=df['field_officer'][i]),
+                        tmo_call_required=df['tmo_call_required'][i],
+                        date=mydate(df['date'][i]),
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'farmer_plant_list':
-                farmer_plants = []
-                for i in range(n):
-                    farmer_plant = FarmerPlant(
-                        farmer=Farmer.objects.get(name=df['farmer']),
-                        plant=Plant.objects.get(name=df['plant']),
-                        plant_period=df['plant_period'],
-                        major=mybool(df['major']),
-                    )
-                    farmer_plants.append(farmer_plant)
-                FarmerPlant.objects.bulk_create(farmer_plants)
+            elif file_name == 'farmer_plant_list':
+                FarmerPlant.objects.bulk_create(FarmerPlant(
+                        farmer=Farmer.objects.get(name=df['farmer'][i]),
+                        plant=Plant.objects.get(name=df['plant'][i]),
+                        plant_period=df['plant_period'][i],
+                        major=mybool(df['major'][i]),
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'dealer_farmer_relation_list':
+            elif file_name == 'dealer_farmer_relation_list':
                 relations = []
                 for i in range(n):
                     relation = DealerFarmerRelation(
@@ -215,47 +172,36 @@ def load_csv(request):
                 DealerFarmerRelation.objects.bulk_create(relations)
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'purchase_history_list':
-                histories = []
-                for i in range(n):
-                    history = PurchaseHistory(
-                        dealer=Dealer.objects.get(name=df['dealer']),
-                        farmer=Farmer.objects.get(name=df['farmer']),
-                        product=Product.objects.get(name=df['product']),
-                        date=mydate(['date']),
-                        quantity=int(df['quantity']),
-                    )
-                    histories.append(history)
-                PurchaseHistory.objects.bulk_create(histories)
+            elif file_name == 'purchase_history_list':
+                PurchaseHistory.objects.bulk_create(PurchaseHistory(
+                        dealer=Dealer.objects.get(name=df['dealer'][i]),
+                        farmer=Farmer.objects.get(name=df['farmer'][i]),
+                        product=Product.objects.get(name=df['product'][i]),
+                        date=mydate(['date'][i]),
+                        quantity=int(df['quantity'][i]),
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'farmer_interest_list':
-                interests = []
-                for i in range(n):
-                    interest = FarmerInterest(
-                        farmer=Farmer.objects.get(name=df['farmer']),
-                        plant=Plant.objects.get(name=df['plant']),
-                        interested=mybool(df['interested']),
-                        quantity=int(df['quantity']),
-                        date=mydate(df['date']),
-                    )
-                    interests.append(interest)
-                FarmerInterest.objects.bulk_create(interests)
+            elif file_name == 'farmer_interest_list':
+                FarmerInterest.objects.bulk_create(FarmerInterest(
+                        farmer=Farmer.objects.get(name=df['farmer'][i]),
+                        plant=Plant.objects.get(name=df['plant'][i]),
+                        interested=mybool(df['interested'][i]),
+                        quantity=int(df['quantity'][i]),
+                        date=mydate(df['date'][i]),
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
-            elif 'file_name' == 'dealer_product_list':
-                dealer_products = []
-                for i in range(n):
-                    dealer_product = DealerProduct(
-                        dealer=Dealer.objects.get(name=df['dealer']),
-                        product=Product.objects.get(name=df['product']),
-                        quantity=int(df['quantity']),
-                        date=mydate(df['date']),
-                    )
-                    dealer_products.append(dealer_product)
-                DealerProduct.objects.bulk_create(dealer_products)
+            elif file_name == 'dealer_product_list':
+                DealerProduct.objects.bulk_create(DealerProduct(
+                        dealer=Dealer.objects.get(name=df['dealer'][i]),
+                        product=Product.objects.get(name=df['product'][i]),
+                        quantity=int(df['quantity'][i]),
+                        date=mydate(df['date'][i]),
+                    ) for i in range(n))
                 return redirect('upload:load_csv')
 
+            return redirect('upload:load_csv')
         else:
             return render(request, 'upload/upload.html')
 
