@@ -26,6 +26,7 @@
                 <th><a href="{% url 'hsapp:plant_list' %}">Plant</a></th>
                 <th><a href="{% url 'hsapp:company_list' %}">company</a></th>
                 <th>Price</th>
+                <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
                 <td><a href="{% url 'hsapp:plant_detail' pk=product.plant.id %}">{{ product.plant.name }}</a></td>
                 <td><a href="{% url 'hsapp:company_detail' pk=product.company.id %}">{{ product.company.name }}</a></td>
                 <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
             </tr>
             {% endfor %}
         </tbody>

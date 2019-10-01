@@ -49,7 +49,7 @@ class ProductInSeasonList(LoginRequiredMixin, ListView):
             elif s_in <= month_now:
                 plants_in_season.append(plant)
 
-        result = result.filter(plant=[plant for plant in plants_in_season])
+        result = result.filter(plant__in=[plant for plant in plants_in_season])
 
         return result
 

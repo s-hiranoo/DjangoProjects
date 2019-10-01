@@ -10,7 +10,7 @@
     <p>Product: {{ product.name }}</p>
     <p>Plant: {{ product.plant.name }}</p>
     <p>Company: {{ product.company.name }}</p>
-    <p>Price: {{ product.price }}</p>
+    <p>Price: {{ product.price }} (x {{ product.quantity }})</p>
     {% for dealer_product in product.dealerproduct_set.all %}
         <p>Dealer: {{ dealer_product.dealer.name }} [{{ dealer_product.quantity }}] -- {{ dealer_product.date }}</p>
     {% endfor %}
