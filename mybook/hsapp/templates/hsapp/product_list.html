@@ -2,11 +2,11 @@
 
 {% load static %}
 
-{% block title %}Dealer List{% endblock title %}
+{% block title %}Product List{% endblock title %}
 
 {% block content %}
-    <h2><a href="{% url 'hsapp:dealer_info' %}">Dealer List</a></h2>
-    <form method="get" action="{% url 'hsapp:dealer_info' %}">
+    <h2><a href="{% url 'hsapp:product_list' %}">Product List</a></h2>
+    <form method="get" action="{% url 'hsapp:product_list' %}">
         <input type="text" value="" name="order_by">
         <input type="submit" value="Sort">
     </form>
@@ -22,10 +22,9 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Plant</th>
-                <th>Season</th>
-                <th>Company</th>
+                <th>Product</th>
+                <th><a href="{% url 'hsapp:plant_list' %}">Plant</a></th>
+                <th><a href="{% url 'hsapp:company_list' %}">company</a></th>
                 <th>Price</th>
             </tr>
         </thead>
@@ -34,9 +33,8 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.plant_id }}</td>
-                <td>{{ product.season }}</td>
-                <td>{{ product.company_id }}</td>
+                <td><a href="{% url 'hsapp:plant_detail' pk=product.plant.id %}">{{ product.plant.name }}</a></td>
+                <td><a href="{% url 'hsapp:company_detail' pk=product.company.id %}">{{ product.company.name }}</a></td>
                 <td>{{ product.price }}</td>
             </tr>
             {% endfor %}

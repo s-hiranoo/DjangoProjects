@@ -1,0 +1,19 @@
+{% extends 'adminlte/base.html' %}
+
+{% load static %}
+
+{% block title %}Plant{% endblock title %}
+
+{% block content %}
+    <h2><a href="#">Plant Detail</a></h2>
+
+    <p>Plant: {{ plant.name }}</p>
+    <p>Species: {{ plant.species }}</p>
+    <p>Season: {{ plant.season_in }} - {{ plant.season_end }}</p>
+    {% for farmer in plant.farmerplant_set.all %}
+        <p>Farmer: {{ farmer.name }} </p>
+    {% endfor %}
+    {% for farmer in plant.farmerinterest_set.all %}
+        <p>Which farmers are interested?: {{ farmer }}</p>
+    {% endfor %}
+{% endblock content %}

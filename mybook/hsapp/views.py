@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DetailView
 from django.views.generic.list import ListView
 from .models import *
 from .forms import *
@@ -31,19 +31,52 @@ class ProductList(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'hsapp/product_list.html'
 
-    def get_queryset(self):
-        result = super(ProductList, self).get_queryset()
 
-        if 'q' in self.request.GET:
-            query = self.request.GET.get('q')
-            if 'season' in query:
-                month_now = timezone.now().month
-                plants_in_season = Plant.objects.filter(season_in__lt=month_now+1, season_out__gt=month_now-1)
-                result = result.filter(plant_id__in=[plant.id for plant in plants_in_season])
-            else:
-                order_key = query
-                result.order_by(order_key)
+class ProductInSeasonList(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'hsapp/product_list.html'
+
+    def get_queryset(self):
+        result = super(ProductInSeasonList, self).get_queryset()
+        month_now = timezone.now().month
+        plants_in_season_candidate = Plant.objects.filter(season_end__gte=month_now)
+        plants_in_season = []
+        for plant in plants_in_season_candidate:
+            s_in = plant.season_in
+            s_end = plant.season_end
+            if s_in > s_end:
+                plants_in_season.append(plant)
+            elif s_in <= month_now:
+                plants_in_season.append(plant)
+
+        result = result.filter(plant=[plant for plant in plants_in_season])
+
         return result
+
+
+class ProductDetail(LoginRequiredMixin, DetailView):
+    model = Product
+    template_name = 'hsapp/product_detail.html'
+
+
+class PlantList(LoginRequiredMixin, ListView):
+    model = Plant
+    template_name = 'hsapp/plant_list.html'
+
+
+class PlantDetail(LoginRequiredMixin, DetailView):
+    model = Plant
+    template_name = 'hsapp/plant_detail.html'
+
+
+class CompanyList(LoginRequiredMixin, ListView):
+    model = Company
+    template_name = 'hsapp/company_list.html'
+
+
+class CompanyDetail(LoginRequiredMixin, DetailView):
+    model = Company
+    template_name = 'hsapp/company_detail.html'
 
 
 class DealerInfo(LoginRequiredMixin, ListView):

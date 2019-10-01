@@ -4,7 +4,11 @@
     <list default="true" id="22d45273-90b2-4730-84c0-c02aacaae5d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybook/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybook/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/templates/hsapp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/templates/hsapp/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/templates/hsapp/product_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/templates/hsapp/product_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hsapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hsapp/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +117,7 @@
       <workItem from="1569159008579" duration="16521000" />
       <workItem from="1569206553826" duration="1278000" />
       <workItem from="1569320193354" duration="23535000" />
-      <workItem from="1569587359991" duration="15231000" />
+      <workItem from="1569587359991" duration="24542000" />
     </task>
     <servers />
   </component>

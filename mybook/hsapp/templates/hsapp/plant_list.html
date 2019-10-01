@@ -1,0 +1,45 @@
+{% extends 'hsapp/base.html' %}
+
+{% load static %}
+
+{% block title %}Dealer List{% endblock title %}
+
+{% block content %}
+    <h2><a href="{% url 'hsapp:plant_list' %}">Plant List</a></h2>
+    <form method="get" action="{% url 'hsapp:plant_list' %}">
+        <input type="text" value="" name="order_by">
+        <input type="submit" value="Sort">
+    </form>
+    <br>
+    <!--
+    <form method="get" action="{% url 'hsapp:search_results_list' %}">
+        <input type="test" name="q" placeholder="Search...">
+        <input type="submit" value="Search">
+    </form>
+    --->
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th><a href="#">Plant</a></th>
+                <th><a href="#">Species</a></th>
+                <th>Season_in</th>
+                <th>Season_end</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plant in plant_list%}
+            <tr>
+                <td>{{ plant.id }}</td>
+                <td><a href="{% url 'hsapp:plant_detail' pk=plant.id %}">{{ plant.name }}</a></td>
+                <td><a href="#">{{ plant.species }}</a></td>
+                <td>{{ plant.season_in }}</td>
+                <td>{{ plant.season_end }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+{% endblock content %}

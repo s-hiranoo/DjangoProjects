@@ -1,0 +1,16 @@
+{% extends 'adminlte/base.html' %}
+
+{% load static %}
+
+{% block title %}Company{% endblock title %}
+
+{% block content %}
+    <h2><a href="#">Company Detail</a></h2>
+
+    <p>Company: {{ company.name }}</p>
+    <p>location: {{ company.location }}</p>
+    {% for product in company.product_set.all %}
+        <p>Product: {{ product.name }} -- {{ product.plant.name }} [{{ product.plant.season_in }} - {{ product.plant.season_end }}]</p>
+    {% endfor %}
+
+{% endblock content %}

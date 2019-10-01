@@ -1,0 +1,18 @@
+{% extends 'adminlte/base.html' %}
+
+{% load static %}
+
+{% block title %}Dealer List{% endblock title %}
+
+{% block content %}
+    <h2><a href="#">Product Detail</a></h2>
+
+    <p>Product: {{ product.name }}</p>
+    <p>Plant: {{ product.plant.name }}</p>
+    <p>Company: {{ product.company.name }}</p>
+    <p>Price: {{ product.price }}</p>
+    {% for dealer_product in product.dealerproduct_set.all %}
+        <p>Dealer: {{ dealer_product.dealer.name }} [{{ dealer_product.quantity }}] -- {{ dealer_product.date }}</p>
+    {% endfor %}
+
+{% endblock content %}
